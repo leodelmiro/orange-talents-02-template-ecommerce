@@ -25,7 +25,7 @@ public class User {
 
     @NotNull
     @PastOrPresent
-    @Column(updatable = false)
+    @Column(updatable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt = Instant.now();
 
     @Deprecated

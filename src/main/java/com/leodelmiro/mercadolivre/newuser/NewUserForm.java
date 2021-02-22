@@ -1,5 +1,7 @@
 package com.leodelmiro.mercadolivre.newuser;
 
+import com.leodelmiro.mercadolivre.validation.UniqueValue;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -8,6 +10,7 @@ public class NewUserForm {
 
     @NotBlank
     @Email
+    @UniqueValue(fieldName = "email", domainClass = User.class)
     private String email;
 
     @NotBlank
