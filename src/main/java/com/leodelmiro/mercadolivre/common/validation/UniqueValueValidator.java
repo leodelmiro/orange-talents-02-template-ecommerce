@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.validation;
+package com.leodelmiro.mercadolivre.common.validation;
 
 import org.springframework.util.Assert;
 

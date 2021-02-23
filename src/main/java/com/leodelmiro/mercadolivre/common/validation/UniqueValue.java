@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.validation;
+package com.leodelmiro.mercadolivre.common.validation;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

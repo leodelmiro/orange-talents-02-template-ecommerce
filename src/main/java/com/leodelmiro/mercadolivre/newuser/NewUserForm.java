@@ -1,6 +1,6 @@
 package com.leodelmiro.mercadolivre.newuser;
 
-import com.leodelmiro.mercadolivre.validation.UniqueValue;
+import com.leodelmiro.mercadolivre.common.validation.UniqueValue;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
