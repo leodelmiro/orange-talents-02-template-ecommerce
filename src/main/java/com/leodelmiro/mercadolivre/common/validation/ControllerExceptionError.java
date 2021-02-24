@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,6 +18,7 @@ public class ControllerExceptionError {
 
     @Autowired
     private MessageSource messageSource;
+    private IllegalArgumentException exception;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -34,4 +34,11 @@ public class ControllerExceptionError {
 
         return fieldMessageDTOS;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public FieldMessageDTO validation(CategoryNotFoundException exception) {
+        return new FieldMessageDTO("categoryId", exception.getMessage());
+    }
+
 }
