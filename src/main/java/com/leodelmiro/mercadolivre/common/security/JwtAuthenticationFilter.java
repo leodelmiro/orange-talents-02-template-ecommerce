@@ -5,21 +5,20 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.persistence.EntityManager;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class JwtAthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private TokenManager tokenManager;
-    private EntityManager entityManager;
+    private UsersService usersService;
 
-    public JwtAthenticationFilter(TokenManager tokenManager, EntityManager entityManager) {
+    public JwtAuthenticationFilter(TokenManager tokenManager, UsersService usersService) {
         this.tokenManager = tokenManager;
-        this.entityManager = entityManager;
+        this.usersService = usersService;
     }
 
     @Override
@@ -38,7 +37,7 @@ public class JwtAthenticationFilter extends OncePerRequestFilter {
 
     private void authenticateUser(String token) {
         String userEmail = tokenManager.getUserName(token);
-        User user = entityManager.find(User.class, userEmail);
+        User user = (User) usersService.loadUserByUsername(userEmail);
 
         if (user == null) {
             return;

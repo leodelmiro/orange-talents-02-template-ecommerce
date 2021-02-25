@@ -49,6 +49,10 @@ public class User implements UserDetails {
         return Collections.singletonList(new SimpleGrantedAuthority("user"));
     }
 
+    public Long getId() {
+        return id;
+    }
+
     @Override
     public String getPassword() {
         return password;

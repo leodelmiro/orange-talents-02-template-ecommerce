@@ -1,5 +1,7 @@
 package com.leodelmiro.mercadolivre.newcategory;
 
+import io.jsonwebtoken.lang.Assert;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
@@ -25,6 +27,8 @@ public class Category {
     }
 
     public Category(@NotBlank String name) {
+        Assert.hasLength(name, "Nome é obrigatório!");
+
         this.name = name;
     }
 

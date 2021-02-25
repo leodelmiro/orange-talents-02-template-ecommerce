@@ -3,7 +3,6 @@ package com.leodelmiro.mercadolivre.newcategory;
 import com.leodelmiro.mercadolivre.common.validation.CategoryNotFoundException;
 import com.leodelmiro.mercadolivre.common.validation.UniqueValue;
 import com.sun.istack.Nullable;
-import org.springframework.util.Assert;
 
 import javax.persistence.EntityManager;
 import javax.validation.constraints.NotBlank;
@@ -39,7 +38,7 @@ public class NewCategoryForm {
         if (motherCategoryId != null) {
             Category motherCategory = entityManager.find(Category.class, motherCategoryId);
 
-            if(motherCategory == null) throw new CategoryNotFoundException("Categoria mãe informada não é válida");
+            if (motherCategory == null) throw new CategoryNotFoundException("Categoria mãe informada não é válida");
 
             newCategory.setMotherCategory(motherCategory);
         }
