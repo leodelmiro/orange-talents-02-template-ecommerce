@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.newproduct;
+package com.leodelmiro.mercadolivre.product;
 
 import com.leodelmiro.mercadolivre.common.validation.ExistsId;
 import com.leodelmiro.mercadolivre.common.validation.UniqueValue;

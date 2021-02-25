@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.newproduct;
+package com.leodelmiro.mercadolivre.product;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leodelmiro.mercadolivre.builders.LoginInputDtoBuilder;

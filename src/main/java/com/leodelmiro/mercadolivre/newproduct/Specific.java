@@ -1,9 +1,8 @@
-package com.leodelmiro.mercadolivre.newproduct;
+package com.leodelmiro.mercadolivre.product;
 
 import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;

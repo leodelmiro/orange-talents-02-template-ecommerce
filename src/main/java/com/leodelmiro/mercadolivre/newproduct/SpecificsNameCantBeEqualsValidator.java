@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.newproduct;
+package com.leodelmiro.mercadolivre.product;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

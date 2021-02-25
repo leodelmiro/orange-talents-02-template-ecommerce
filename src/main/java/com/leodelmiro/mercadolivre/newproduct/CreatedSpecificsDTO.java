@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.newproduct;
+package com.leodelmiro.mercadolivre.product;
 
 public class CreatedSpecificsDTO {
 

@@ -1,5 +1,6 @@
 package com.leodelmiro.mercadolivre.common.security;
 
+import com.leodelmiro.mercadolivre.common.validation.FieldMessageDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,8 @@ public class UserAuthenticationController {
 
         } catch (AuthenticationException e) {
             log.error("[Autenticacao] {}", e.getMessage());
-            return ResponseEntity.badRequest().build();
+
+            return ResponseEntity.badRequest().body("Usuário não encontrado!");
         }
     }
 }

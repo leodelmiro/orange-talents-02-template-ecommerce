@@ -1,6 +1,5 @@
-package com.leodelmiro.mercadolivre.newproduct;
+package com.leodelmiro.mercadolivre.product;
 
-import com.leodelmiro.mercadolivre.common.validation.UniqueValue;
 import com.leodelmiro.mercadolivre.newcategory.Category;
 import com.leodelmiro.mercadolivre.newuser.User;
 import io.jsonwebtoken.lang.Assert;
@@ -9,10 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Entity
@@ -36,10 +32,8 @@ public class Product {
     @Size(max = 1000)
     private String description;
 
-    @NotNull
-    @PastOrPresent
-    @Column(updatable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant createdAt = Instant.now();
+    @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
+    private Set<ProductImage> images = new HashSet<>();
 
     @NotNull
     @ManyToOne
@@ -53,8 +47,13 @@ public class Product {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name ="owner_id")
+    @JoinColumn(name = "owner_id")
     private User owner;
+
+    @NotNull
+    @PastOrPresent
+    @Column(updatable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+    private Instant createdAt = Instant.now();
 
     @Deprecated
     public Product() {
@@ -132,5 +131,12 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(name);
+    }
+
+    public void associateImages(Set<String> links) {
+        Set<ProductImage> images =
+                links.stream().map(link -> new ProductImage(this, link)).collect(Collectors.toSet());
+
+        this.images.addAll(images);
     }
 }
