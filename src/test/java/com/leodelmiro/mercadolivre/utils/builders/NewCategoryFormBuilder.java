@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.builders;
+package com.leodelmiro.mercadolivre.utils.builders;
 
 import com.leodelmiro.mercadolivre.newcategory.NewCategoryForm;
 

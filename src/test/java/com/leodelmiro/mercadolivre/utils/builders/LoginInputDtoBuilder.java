@@ -1,7 +1,6 @@
-package com.leodelmiro.mercadolivre.builders;
+package com.leodelmiro.mercadolivre.utils.builders;
 
 import com.leodelmiro.mercadolivre.common.security.LoginInputDTO;
-import com.leodelmiro.mercadolivre.newuser.NewUserForm;
 
 public class LoginInputDtoBuilder {
 

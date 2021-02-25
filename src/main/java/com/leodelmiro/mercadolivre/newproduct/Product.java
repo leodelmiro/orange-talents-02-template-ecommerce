@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.product;
+package com.leodelmiro.mercadolivre.newproduct;
 
 import com.leodelmiro.mercadolivre.newcategory.Category;
 import com.leodelmiro.mercadolivre.newuser.User;
@@ -116,8 +116,23 @@ public class Product {
         return specifics;
     }
 
+    public Set<ProductImage> getImages() {
+        return images;
+    }
+
     public User getOwner() {
         return owner;
+    }
+
+    public void associateImages(Set<String> links) {
+        Set<ProductImage> images =
+                links.stream().map(link -> new ProductImage(this, link)).collect(Collectors.toSet());
+
+        this.images.addAll(images);
+    }
+
+    public boolean belongsToUser(User possibleOwner) {
+        return this.owner.equals(possibleOwner);
     }
 
     @Override
@@ -131,12 +146,5 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(name);
-    }
-
-    public void associateImages(Set<String> links) {
-        Set<ProductImage> images =
-                links.stream().map(link -> new ProductImage(this, link)).collect(Collectors.toSet());
-
-        this.images.addAll(images);
     }
 }

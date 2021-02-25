@@ -1,7 +1,7 @@
 package com.leodelmiro.mercadolivre.newcategory;
 
-import com.leodelmiro.mercadolivre.builders.CategoryBuilder;
-import com.leodelmiro.mercadolivre.builders.NewCategoryFormBuilder;
+import com.leodelmiro.mercadolivre.utils.builders.CategoryBuilder;
+import com.leodelmiro.mercadolivre.utils.builders.NewCategoryFormBuilder;
 import com.leodelmiro.mercadolivre.common.validation.CategoryNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

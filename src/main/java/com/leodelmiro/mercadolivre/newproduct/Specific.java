@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.product;
+package com.leodelmiro.mercadolivre.newproduct;
 
 import io.jsonwebtoken.lang.Assert;
 
@@ -23,9 +23,9 @@ public class Specific {
 
     @NotNull
     @ManyToOne
-    @JoinTable(name="products_specifics", joinColumns=
-            {@JoinColumn(name="specifics_id")}, inverseJoinColumns=
-            {@JoinColumn(name="products_id")})
+    @JoinTable(name = "tb_products_specifics",
+            joinColumns = {@JoinColumn(name = "specifics_id")},
+            inverseJoinColumns = {@JoinColumn(name = "products_id")})
     private Product product;
 
     public Specific(String name, String description, Product product) {

@@ -1,7 +1,7 @@
 package com.leodelmiro.mercadolivre.newcategory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leodelmiro.mercadolivre.builders.NewCategoryFormBuilder;
+import com.leodelmiro.mercadolivre.utils.builders.NewCategoryFormBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

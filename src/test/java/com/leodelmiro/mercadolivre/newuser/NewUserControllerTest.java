@@ -1,7 +1,7 @@
 package com.leodelmiro.mercadolivre.newuser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leodelmiro.mercadolivre.builders.NewUserFormBuilder;
+import com.leodelmiro.mercadolivre.utils.builders.NewUserFormBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

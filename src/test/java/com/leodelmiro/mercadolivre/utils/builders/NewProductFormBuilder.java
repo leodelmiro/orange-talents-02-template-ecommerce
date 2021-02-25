@@ -1,8 +1,7 @@
-package com.leodelmiro.mercadolivre.builders;
+package com.leodelmiro.mercadolivre.utils.builders;
 
 import com.leodelmiro.mercadolivre.newproduct.NewProductForm;
 import com.leodelmiro.mercadolivre.newproduct.NewSpecificForm;
-import com.leodelmiro.mercadolivre.newproduct.Product;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -53,6 +52,6 @@ public class NewProductFormBuilder {
     }
 
     public NewProductForm build(){
-        return new NewProductForm(name, price, quantity, description, categoryId, ownerId, specifics);
+        return new NewProductForm(name, price, quantity, description, categoryId, specifics);
     }
 }

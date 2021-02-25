@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.product;
+package com.leodelmiro.mercadolivre.newproduct;
 
 import com.leodelmiro.mercadolivre.common.validation.ExistsId;
 import com.leodelmiro.mercadolivre.common.validation.UniqueValue;
@@ -38,23 +38,17 @@ public class NewProductForm {
     @Valid
     private List<NewSpecificForm> specifics = new ArrayList<>();
 
-    @NotNull
-    @ExistsId(fieldName = "id", domainClass = User.class)
-    private Long ownerId;
-
     public NewProductForm(@NotBlank String name,
                           @Positive BigDecimal price,
                           @PositiveOrZero Long quantity,
                           @NotBlank @Size(max = 1000) String description,
                           @NotNull Long categoryId,
-                          @NotNull Long ownerId,
                           List<NewSpecificForm> specifics) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.description = description;
         this.categoryId = categoryId;
-        this.ownerId = ownerId;
         this.specifics.addAll(specifics);
     }
 
@@ -80,10 +74,6 @@ public class NewProductForm {
 
     public List<NewSpecificForm> getSpecifics() {
         return specifics;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
     }
 
     public Product toModel(EntityManager entityManager, User owner) {

@@ -1,7 +1,7 @@
 package com.leodelmiro.mercadolivre.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leodelmiro.mercadolivre.builders.LoginInputDtoBuilder;
+import com.leodelmiro.mercadolivre.utils.builders.LoginInputDtoBuilder;
 import com.leodelmiro.mercadolivre.common.security.LoginInputDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -41,4 +41,9 @@ public class ControllerExceptionError {
         return new FieldMessageDTO("categoryId", exception.getMessage());
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(FileCantBeEmptyException.class)
+    public FieldMessageDTO validation(FileCantBeEmptyException exception) {
+        return new FieldMessageDTO("file", exception.getMessage());
+    }
 }

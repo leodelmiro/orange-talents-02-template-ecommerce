@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.product;
+package com.leodelmiro.mercadolivre.newproduct;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
