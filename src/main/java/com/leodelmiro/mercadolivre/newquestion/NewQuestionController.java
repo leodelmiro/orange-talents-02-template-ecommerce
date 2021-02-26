@@ -5,14 +5,11 @@ import com.leodelmiro.mercadolivre.newproduct.Product;
 import com.leodelmiro.mercadolivre.newuser.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,15 +26,13 @@ public class NewQuestionController {
 
     @PostMapping("/{id}/questions")
     @Transactional
-    public List<QuestionDTO> insert(@AuthenticationPrincipal UserDetails loggedUser,
+    public List<QuestionDTO> insert(@AuthenticationPrincipal User loggedUser,
                                     @PathVariable Long id, @RequestBody @Valid NewQuestionForm newQuestionForm) {
-
-        User possibleConsumer = (User) loggedUser;
 
         Product product = entityManager.find(Product.class, id);
         if (product == null) throw new ProductNotFoundException("Produto não encontrado!");
 
-        Question newQuestion = newQuestionForm.toModel(product, possibleConsumer);
+        Question newQuestion = newQuestionForm.toModel(product, loggedUser);
         entityManager.persist(newQuestion);
 
         emails.newQuestion(newQuestion);

@@ -6,7 +6,6 @@ import com.leodelmiro.mercadolivre.newuser.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,12 +31,12 @@ public class NewImageController {
     @PostMapping(value = "/{id}/images")
     @Transactional
     public InsertedProductImageDTO insertImages(
-            @AuthenticationPrincipal UserDetails loggedUser, @PathVariable Long id, @Valid NewImagesForm newImagesForm) {
-        User owner = (User) loggedUser;
+            @AuthenticationPrincipal User loggedUser, @PathVariable Long id, @Valid NewImagesForm newImagesForm) {
+
         Product product = entityManager.find(Product.class, id);
 
         if (product == null) throw new ProductNotFoundException("Produto não encontrado!");
-        if (!product.belongsToUser(owner)) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        if (!product.belongsToUser(loggedUser)) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         if (newImagesForm.hasNullFile()) throw new FileCantBeEmptyException("Arquivo de imagem não pode ser vazio!");
 
         Set<String> links = uploaderFake.send(newImagesForm.getImages());
