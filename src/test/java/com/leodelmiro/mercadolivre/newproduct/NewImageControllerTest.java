@@ -46,6 +46,18 @@ public class NewImageControllerTest {
                 .andExpect(status().isBadRequest());
     }
 
+
+    @Test
+    @DisplayName("Deve retornar 400 quando id do produto não existir")
+    @WithUserDetails("email@email.com")
+    public void insertShouldReturn400WhenProductIDDoesNotExists() throws Exception {
+        image = new MockMultipartFile("images", null, null, (InputStream) null);
+
+        mockMvc.perform(multipart("/products/100/images")
+                .file(image))
+                .andExpect(status().isBadRequest());
+    }
+
     @Test
     @DisplayName("Deve retornar 403 quando usuário não for o dono do produto")
     @WithUserDetails("test@email.com")

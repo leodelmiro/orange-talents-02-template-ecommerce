@@ -46,4 +46,10 @@ public class ControllerExceptionError {
     public FieldMessageDTO validation(FileCantBeEmptyException exception) {
         return new FieldMessageDTO("file", exception.getMessage());
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ProductNotFoundException.class)
+    public FieldMessageDTO validation(ProductNotFoundException exception) {
+        return new FieldMessageDTO("product", exception.getMessage());
+    }
 }

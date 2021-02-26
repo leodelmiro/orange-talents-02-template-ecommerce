@@ -1,6 +1,7 @@
 package com.leodelmiro.mercadolivre.newproduct;
 
 import com.leodelmiro.mercadolivre.common.validation.FileCantBeEmptyException;
+import com.leodelmiro.mercadolivre.common.validation.ProductNotFoundException;
 import com.leodelmiro.mercadolivre.newuser.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,10 +36,8 @@ public class NewImageController {
         User owner = (User) loggedUser;
         Product product = entityManager.find(Product.class, id);
 
-        if (!product.belongsToUser(owner)) {
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN);
-        }
-
+        if (product == null) throw new ProductNotFoundException("Produto não encontrado!");
+        if (!product.belongsToUser(owner)) throw new ResponseStatusException(HttpStatus.FORBIDDEN);
         if (newImagesForm.hasNullFile()) throw new FileCantBeEmptyException("Arquivo de imagem não pode ser vazio!");
 
         Set<String> links = uploaderFake.send(newImagesForm.getImages());
