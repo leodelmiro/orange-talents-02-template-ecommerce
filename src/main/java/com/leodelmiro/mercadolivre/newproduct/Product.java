@@ -1,6 +1,7 @@
 package com.leodelmiro.mercadolivre.newproduct;
 
 import com.leodelmiro.mercadolivre.newcategory.Category;
+import com.leodelmiro.mercadolivre.newquestion.Question;
 import com.leodelmiro.mercadolivre.newuser.User;
 import io.jsonwebtoken.lang.Assert;
 
@@ -49,6 +50,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "product")
+    private List<Question> questions;
 
     @NotNull
     @PastOrPresent
@@ -114,6 +118,10 @@ public class Product {
 
     public Set<Specific> getSpecifics() {
         return specifics;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
     }
 
     public Set<ProductImage> getImages() {

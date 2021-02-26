@@ -6,7 +6,6 @@ public class CreatedFeedbackDTO {
     private String title;
     private String description;
     private Short rating;
-    private Long productId;
     private Long userId;
 
     public CreatedFeedbackDTO(Feedback entity) {
@@ -14,7 +13,6 @@ public class CreatedFeedbackDTO {
         this.title = entity.getTitle();
         this.description = entity.getDescription();
         this.rating = entity.getRating();
-        this.productId = entity.getProduct().getId();
         this.userId = entity.getUser().getId();
     }
 
@@ -32,10 +30,6 @@ public class CreatedFeedbackDTO {
 
     public Short getRating() {
         return rating;
-    }
-
-    public Long getProductId() {
-        return productId;
     }
 
     public Long getUserId() {
