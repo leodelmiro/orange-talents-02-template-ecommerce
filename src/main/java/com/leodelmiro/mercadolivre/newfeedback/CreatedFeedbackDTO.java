@@ -5,7 +5,7 @@ public class CreatedFeedbackDTO {
     private Long id;
     private String title;
     private String description;
-    private Short rating;
+    private Integer rating;
     private Long userId;
 
     public CreatedFeedbackDTO(Feedback entity) {
@@ -28,7 +28,7 @@ public class CreatedFeedbackDTO {
         return description;
     }
 
-    public Short getRating() {
+    public Integer getRating() {
         return rating;
     }
 

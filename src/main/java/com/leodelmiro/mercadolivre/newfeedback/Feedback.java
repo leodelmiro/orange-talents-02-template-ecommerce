@@ -6,6 +6,7 @@ import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "tb_feedbacks")
@@ -24,7 +25,7 @@ public class Feedback {
 
     @Min(1)
     @Max(5)
-    private Short rating;
+    private Integer rating;
 
     @NotNull
     @ManyToOne
@@ -42,7 +43,7 @@ public class Feedback {
     }
 
     public Feedback(@NotBlank String title, @NotBlank @Size(max = 500) String description,
-                    @Min(1) @Max(5) Short rating, @NotNull Product product, @NotNull User user) {
+                    @Min(1) @Max(5) Integer rating, @NotNull Product product, @NotNull User user) {
         Assert.hasLength(title, "Título é obrigatório!");
         Assert.hasLength(description, "Descrição é obrigatória!");
         Assert.state(rating >= 1, "Nota deve ser maior ou igual a um!");
@@ -69,7 +70,7 @@ public class Feedback {
         return description;
     }
 
-    public Short getRating() {
+    public Integer getRating() {
         return rating;
     }
 
@@ -79,5 +80,18 @@ public class Feedback {
 
     public User getUser() {
         return user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Feedback feedback = (Feedback) o;
+        return Objects.equals(title, feedback.title) && Objects.equals(description, feedback.description) && Objects.equals(product, feedback.product) && Objects.equals(user, feedback.user);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, product, user);
     }
 }

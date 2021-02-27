@@ -2,7 +2,7 @@ package com.leodelmiro.mercadolivre.newquestion;
 
 import java.time.Instant;
 
-public class QuestionDTO {
+public class QuestionDTO implements Comparable<QuestionDTO>{
 
     private Long id;
     private String title;
@@ -30,5 +30,10 @@ public class QuestionDTO {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+    @Override
+    public int compareTo(QuestionDTO questionDTO) {
+        return this.title.compareTo(questionDTO.getTitle());
     }
 }

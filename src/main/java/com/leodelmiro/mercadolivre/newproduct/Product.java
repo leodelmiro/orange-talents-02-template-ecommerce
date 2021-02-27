@@ -1,15 +1,20 @@
 package com.leodelmiro.mercadolivre.newproduct;
 
 import com.leodelmiro.mercadolivre.newcategory.Category;
+import com.leodelmiro.mercadolivre.newfeedback.Feedback;
 import com.leodelmiro.mercadolivre.newquestion.Question;
 import com.leodelmiro.mercadolivre.newuser.User;
+import com.leodelmiro.mercadolivre.showdetailspage.SpecificDetailsDTO;
 import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
+import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity
@@ -52,7 +57,11 @@ public class Product {
     private User owner;
 
     @OneToMany(mappedBy = "product")
-    private List<Question> questions;
+    @OrderBy("title ASC")
+    private SortedSet<Question> questions = new TreeSet<>();
+
+    @OneToMany(mappedBy = "product")
+    private Set<Feedback> feedbacks = new HashSet<>();
 
     @NotNull
     @PastOrPresent
@@ -120,8 +129,12 @@ public class Product {
         return specifics;
     }
 
-    public List<Question> getQuestions() {
+    public SortedSet<Question> getQuestions() {
         return questions;
+    }
+
+    public Feedbacks getFeedbacks() {
+        return new Feedbacks(this.feedbacks);
     }
 
     public Set<ProductImage> getImages() {
@@ -143,6 +156,18 @@ public class Product {
         return this.owner.equals(possibleOwner);
     }
 
+    public <T> Set<T> mapSpecifics(Function<Specific,T> mapFunction) {
+        return this.specifics.stream().map(mapFunction).collect(Collectors.toSet());
+    }
+
+    public <T> Set<T> mapImages(Function<ProductImage,T> mapFunction) {
+        return this.images.stream().map(mapFunction).collect(Collectors.toSet());
+    }
+
+    public <T extends Comparable<T>> SortedSet<T> mapQuestions(Function<Question,T> mapFunction) {
+        return this.questions.stream().map(mapFunction).collect(Collectors.toCollection(TreeSet::new));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,4 +180,7 @@ public class Product {
     public int hashCode() {
         return Objects.hash(name);
     }
+
+
+
 }

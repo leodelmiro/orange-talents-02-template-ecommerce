@@ -6,7 +6,7 @@ public class NewFeedbackFormBuilder {
 
     private String title;
     private String description;
-    private Short rating;
+    private Integer rating;
 
     public NewFeedbackFormBuilder withTitle(String title) {
         this.title = title;
@@ -18,7 +18,7 @@ public class NewFeedbackFormBuilder {
         return this;
     }
 
-    public NewFeedbackFormBuilder withRating(Short rating) {
+    public NewFeedbackFormBuilder withRating(Integer rating) {
         this.rating = rating;
         return this;
     }

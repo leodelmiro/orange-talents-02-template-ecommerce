@@ -12,6 +12,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,7 +28,7 @@ public class NewQuestionController {
 
     @PostMapping("/{id}/questions")
     @Transactional
-    public List<QuestionDTO> insert(@AuthenticationPrincipal User loggedUser,
+    public SortedSet<QuestionDTO> insert(@AuthenticationPrincipal User loggedUser,
                                     @PathVariable Long id, @RequestBody @Valid NewQuestionForm newQuestionForm) {
 
         Product product = entityManager.find(Product.class, id);
@@ -37,7 +39,7 @@ public class NewQuestionController {
 
         emails.newQuestion(newQuestion);
 
-        List<Question> list = product.getQuestions();
-        return list.stream().map(QuestionDTO::new).collect(Collectors.toList());
+        SortedSet<Question> list = product.getQuestions();
+        return list.stream().map(QuestionDTO::new).collect(Collectors.toCollection(TreeSet::new));
     }
 }

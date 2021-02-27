@@ -34,7 +34,7 @@ public class NewFeedbackControllerTest {
     @DisplayName("Deve retornar 200 quando tudo OK")
     @WithUserDetails("email@email.com")
     public void insertShouldReturn200() throws Exception {
-        newFeedbackForm = new NewFeedbackFormBuilder().withTitle("Muito bom!").withDescription("Bom mesmo!").withRating((short) 5).build();
+        newFeedbackForm = new NewFeedbackFormBuilder().withTitle("Muito bom!").withDescription("Bom mesmo!").withRating(5).build();
         String jsonContent = objectMapper.writeValueAsString(newFeedbackForm);
 
         mockMvc.perform(post("/products/1/feedbacks")
@@ -48,7 +48,7 @@ public class NewFeedbackControllerTest {
     @DisplayName("Deve retornar 400 quando id do produto não existir")
     @WithUserDetails("email@email.com")
     public void insertShouldReturn400WhenProductIDDoesNotExists() throws Exception {
-        newFeedbackForm = new NewFeedbackFormBuilder().withTitle("Muito bom!").withDescription("Bom mesmo!").withRating((short) 5).build();
+        newFeedbackForm = new NewFeedbackFormBuilder().withTitle("Muito bom!").withDescription("Bom mesmo!").withRating(5).build();
         String jsonContent = objectMapper.writeValueAsString(newFeedbackForm);
 
         mockMvc.perform(post("/products/100/feedbacks")
@@ -61,7 +61,7 @@ public class NewFeedbackControllerTest {
     @DisplayName("Deve retornar 400 quando for passado algum atributo inválido")
     @WithUserDetails("email@email.com")
     public void insertShouldReturn400WhenInvalidAttribute() throws Exception {
-        newFeedbackForm = new NewFeedbackFormBuilder().withTitle("").withDescription("Bom mesmo!").withRating((short) 5).build();
+        newFeedbackForm = new NewFeedbackFormBuilder().withTitle("").withDescription("Bom mesmo!").withRating(5).build();
         String jsonContent = objectMapper.writeValueAsString(newFeedbackForm);
 
         mockMvc.perform(post("/products/1/feedbacks")

@@ -17,9 +17,9 @@ public class NewFeedbackForm {
 
     @Min(1)
     @Max(5)
-    private Short rating;
+    private Integer rating;
 
-    public NewFeedbackForm(@NotBlank String title, @NotBlank String description, @Min(1) @Max(5) Short rating) {
+    public NewFeedbackForm(@NotBlank String title, @NotBlank String description, @Min(1) @Max(5) Integer rating) {
         this.title = title;
         this.description = description;
         this.rating = rating;
@@ -33,7 +33,7 @@ public class NewFeedbackForm {
         return description;
     }
 
-    public Short getRating() {
+    public Integer getRating() {
         return rating;
     }
 
