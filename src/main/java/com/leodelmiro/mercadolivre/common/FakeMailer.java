@@ -1,11 +1,12 @@
-package com.leodelmiro.mercadolivre.newquestion;
+package com.leodelmiro.mercadolivre.common;
 
+import com.leodelmiro.mercadolivre.newquestion.Mailer;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
 @Primary
-public class FakeMailer implements Mailer{
+public class FakeMailer implements Mailer {
     @Override
     public void send(String body, String subject, String nameFrom, String from, String to) {
         System.out.println(body);

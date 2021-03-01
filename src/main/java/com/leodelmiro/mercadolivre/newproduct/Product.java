@@ -4,16 +4,13 @@ import com.leodelmiro.mercadolivre.newcategory.Category;
 import com.leodelmiro.mercadolivre.newfeedback.Feedback;
 import com.leodelmiro.mercadolivre.newquestion.Question;
 import com.leodelmiro.mercadolivre.newuser.User;
-import com.leodelmiro.mercadolivre.showdetailspage.SpecificDetailsDTO;
 import io.jsonwebtoken.lang.Assert;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.awt.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.*;
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -156,15 +153,15 @@ public class Product {
         return this.owner.equals(possibleOwner);
     }
 
-    public <T> Set<T> mapSpecifics(Function<Specific,T> mapFunction) {
+    public <T> Set<T> mapSpecifics(Function<Specific, T> mapFunction) {
         return this.specifics.stream().map(mapFunction).collect(Collectors.toSet());
     }
 
-    public <T> Set<T> mapImages(Function<ProductImage,T> mapFunction) {
+    public <T> Set<T> mapImages(Function<ProductImage, T> mapFunction) {
         return this.images.stream().map(mapFunction).collect(Collectors.toSet());
     }
 
-    public <T extends Comparable<T>> SortedSet<T> mapQuestions(Function<Question,T> mapFunction) {
+    public <T extends Comparable<T>> SortedSet<T> mapQuestions(Function<Question, T> mapFunction) {
         return this.questions.stream().map(mapFunction).collect(Collectors.toCollection(TreeSet::new));
     }
 
@@ -181,6 +178,14 @@ public class Product {
         return Objects.hash(name);
     }
 
+    public boolean reduceStock(@Positive Long quantity) {
+        Assert.isTrue(quantity > 0, "A quantidade deve ser maior que 0 para reduzir o estoque");
 
+        if (quantity <= this.quantity) {
+            this.quantity -= quantity;
+            return true;
+        }
 
+        return false;
+    }
 }

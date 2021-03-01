@@ -1,5 +1,6 @@
 package com.leodelmiro.mercadolivre.newquestion;
 
+import com.leodelmiro.mercadolivre.common.Emails;
 import com.leodelmiro.mercadolivre.common.validation.ProductNotFoundException;
 import com.leodelmiro.mercadolivre.newproduct.Product;
 import com.leodelmiro.mercadolivre.newuser.User;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -29,7 +29,7 @@ public class NewQuestionController {
     @PostMapping("/{id}/questions")
     @Transactional
     public SortedSet<QuestionDTO> insert(@AuthenticationPrincipal User loggedUser,
-                                    @PathVariable Long id, @RequestBody @Valid NewQuestionForm newQuestionForm) {
+                                         @PathVariable Long id, @RequestBody @Valid NewQuestionForm newQuestionForm) {
 
         Product product = entityManager.find(Product.class, id);
         if (product == null) throw new ProductNotFoundException("Produto não encontrado!");
