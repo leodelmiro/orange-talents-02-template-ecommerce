@@ -1,4 +1,4 @@
-package com.leodelmiro.mercadolivre.common;
+package com.leodelmiro.mercadolivre.fakeendpoints;
 
 import com.leodelmiro.mercadolivre.newquestion.Mailer;
 import org.springframework.context.annotation.Primary;

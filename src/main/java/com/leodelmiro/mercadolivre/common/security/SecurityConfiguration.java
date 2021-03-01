@@ -52,6 +52,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/users").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/categories").permitAll()
+                .antMatchers("/retorno-pagseguro/**").permitAll()
+                .antMatchers("/invoices").permitAll()
+                .antMatchers("/ranking").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().cors()
                 .and().csrf().disable()
@@ -64,7 +68,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**",
-                "/configuration/**", "/swagger-resources/**", "/css/**", "/**.ico", "/js/**");
+                "/configuration/**", "/swagger-resources/**", "/css/**", "/**.ico", "/js/**", "/h2-console/**");
     }
 
     private static class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {

@@ -1,6 +1,6 @@
 package com.leodelmiro.mercadolivre.purchaseprocess;
 
-import com.leodelmiro.mercadolivre.common.Emails;
+import com.leodelmiro.mercadolivre.fakeendpoints.Emails;
 import com.leodelmiro.mercadolivre.common.validation.ProductNotFoundException;
 import com.leodelmiro.mercadolivre.newproduct.Product;
 import com.leodelmiro.mercadolivre.newuser.User;
@@ -20,13 +20,14 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/purchases")
-public class PurchaseProcessController {
+public class PurchaseProcessPart1Controller {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
     private Emails emails;
+
 
     @PostMapping
     @Transactional

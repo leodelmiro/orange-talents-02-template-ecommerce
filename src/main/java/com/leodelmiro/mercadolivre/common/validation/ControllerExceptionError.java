@@ -1,5 +1,6 @@
 package com.leodelmiro.mercadolivre.common.validation;
 
+import com.leodelmiro.mercadolivre.purchaseprocess.Purchase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -51,5 +52,11 @@ public class ControllerExceptionError {
     @ExceptionHandler(ProductNotFoundException.class)
     public FieldMessageDTO validation(ProductNotFoundException exception) {
         return new FieldMessageDTO("product", exception.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PurchaseNotFoundException.class)
+    public FieldMessageDTO validation(PurchaseNotFoundException exception) {
+        return new FieldMessageDTO("purchase", exception.getMessage());
     }
 }

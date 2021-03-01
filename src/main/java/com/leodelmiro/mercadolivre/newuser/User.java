@@ -95,4 +95,11 @@ public class User implements UserDetails {
     public int hashCode() {
         return Objects.hash(email);
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                " email='" + email + '\'' +
+                '}';
+    }
 }

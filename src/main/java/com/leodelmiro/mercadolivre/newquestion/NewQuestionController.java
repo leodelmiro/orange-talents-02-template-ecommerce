@@ -1,6 +1,6 @@
 package com.leodelmiro.mercadolivre.newquestion;
 
-import com.leodelmiro.mercadolivre.common.Emails;
+import com.leodelmiro.mercadolivre.fakeendpoints.Emails;
 import com.leodelmiro.mercadolivre.common.validation.ProductNotFoundException;
 import com.leodelmiro.mercadolivre.newproduct.Product;
 import com.leodelmiro.mercadolivre.newuser.User;

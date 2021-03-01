@@ -9,6 +9,9 @@ import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "tb_purchases")
@@ -39,6 +42,9 @@ public class Purchase {
 
     @NotNull
     PurchaseStatus status;
+
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.MERGE)
+    private Set<Transaction> transactions = new HashSet<>();
 
     @Deprecated
     public Purchase() {
@@ -76,8 +82,51 @@ public class Purchase {
         return purchaser;
     }
 
+    public User getProductOwner() {
+        return getChosenProduct().getOwner();
+    }
+
     public String redirectUrl(
             UriComponentsBuilder uriComponentsBuilder) {
         return this.gateway.createUrlReturn(this, uriComponentsBuilder);
+    }
+
+    public void addTransaction(@Valid ReturnPaymentGateway request) {
+        Transaction newTransaction = request.toTransaction(this);
+        Assert.isTrue(!this.transactions.contains(newTransaction), "Já existe uma transação igual a essa!");
+
+        Assert.isTrue(!successfullyProcessed(), "Essa compra já foi concluída com sucesso");
+
+        this.transactions.add(newTransaction);
+    }
+
+    private Set<Transaction> successfullyCompletedTransactions() {
+        Set<Transaction> successfullyCompletedTransactions =
+                this.transactions.stream().filter(Transaction::successfullyCompleted).collect(Collectors.toSet());
+
+        Assert.isTrue(successfullyCompletedTransactions.size() <= 1, "Não deve ter mais de uma transação concluída com sucesso!");
+
+        return successfullyCompletedTransactions;
+    }
+
+    public boolean successfullyProcessed() {
+        return !successfullyCompletedTransactions().isEmpty();
+    }
+
+    public void setStatus(PurchaseStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Purchase{" +
+                "id=" + id +
+                ", chosenProduct=" + chosenProduct +
+                ", quantity=" + quantity +
+                ", purchaser=" + purchaser +
+                ", gateway=" + gateway +
+                ", status=" + status +
+                ", transactions=" + transactions +
+                '}';
     }
 }

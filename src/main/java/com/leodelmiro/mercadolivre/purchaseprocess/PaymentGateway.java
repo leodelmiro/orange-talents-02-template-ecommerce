@@ -6,7 +6,7 @@ public enum PaymentGateway {
     PAYPAL {
         @Override
         String createUrlReturn(Purchase purchase, UriComponentsBuilder uriComponentsBuilder) {
-            String urlPaypalReturn = uriComponentsBuilder.path("/return-paypal/{id}").buildAndExpand(purchase.getId()).toString();
+            String urlPaypalReturn = uriComponentsBuilder.path("/retorno-paypal/{id}").buildAndExpand(purchase.getId()).toString();
 
             return "paypal.com/" + purchase.getId() + "?redirectUrl=" + urlPaypalReturn;
         }
@@ -15,7 +15,7 @@ public enum PaymentGateway {
     PAGSEGURO {
         @Override
         String createUrlReturn(Purchase purchase, UriComponentsBuilder uriComponentsBuilder) {
-            String urlPagseguroReturn = uriComponentsBuilder.path("/return-pagseguro/{id}").buildAndExpand(purchase.getId()).toString();
+            String urlPagseguroReturn = uriComponentsBuilder.path("/retorno-pagseguro/{id}").buildAndExpand(purchase.getId()).toString();
 
             return "pagseguro.com/" + purchase.getId() + "?redirectUrl=" + urlPagseguroReturn;
         }

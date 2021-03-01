@@ -1,11 +1,12 @@
 package com.leodelmiro.mercadolivre.purchaseprocess;
 
-import com.leodelmiro.mercadolivre.common.Emails;
+import com.leodelmiro.mercadolivre.fakeendpoints.Emails;
 import com.leodelmiro.mercadolivre.newcategory.Category;
 import com.leodelmiro.mercadolivre.newproduct.NewSpecificForm;
 import com.leodelmiro.mercadolivre.newproduct.Product;
 import com.leodelmiro.mercadolivre.newuser.CleanPassword;
 import com.leodelmiro.mercadolivre.newuser.User;
+import com.leodelmiro.mercadolivre.utils.builders.UserBuilder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -29,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 
 @ExtendWith(MockitoExtension.class)
-public class PurchaseProcessControllerUnitTest {
+public class PurchaseProcessPart1ControllerUnitTest {
 
     @Mock
     private User user;
@@ -41,7 +42,7 @@ public class PurchaseProcessControllerUnitTest {
     private Emails emails;
 
     @InjectMocks
-    private PurchaseProcessController controller;
+    private PurchaseProcessPart1Controller controller;
 
     private List<NewSpecificForm> specifics;
     private Category category;
@@ -54,7 +55,7 @@ public class PurchaseProcessControllerUnitTest {
                 new NewSpecificForm("caracteristica2", "descricao"),
                 new NewSpecificForm("caracteristica3", "descricao"));
         category = new Category("categoria");
-        owner = new User("leonardo@email.com", new CleanPassword("123456"));
+        owner = new UserBuilder().withEmail("leonardo@email.com").withPassword("123456").build();
 
         uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080");
     }
@@ -75,7 +76,7 @@ public class PurchaseProcessControllerUnitTest {
 
         NewPurchaseForm form = new NewPurchaseForm(1L, 1L, PaymentGateway.PAGSEGURO);
         String url = controller.purchaseProcess(user, form, uriComponentsBuilder);
-        Assertions.assertEquals("pagseguro.com/1?redirectUrl=http://localhost:8080/return-pagseguro/1", url);
+        Assertions.assertEquals("pagseguro.com/1?redirectUrl=http://localhost:8080/retorno-pagseguro/1", url);
 
         ArgumentCaptor<Purchase> purchaseArgumentCaptor = ArgumentCaptor.forClass(Purchase.class);
         Mockito.verify(emails).newPurchase(purchaseArgumentCaptor.capture());
