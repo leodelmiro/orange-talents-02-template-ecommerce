@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -26,6 +27,7 @@ public class NewCategoryControllerTest {
 
     @Test
     @DisplayName("Deveria cadastrar categoria")
+    @WithUserDetails("email@email.com")
     public void insertShouldReturnOkWhenCreated() throws Exception {
         NewCategoryForm newCategory = new NewCategoryFormBuilder().withName("Eletrônicos").withMotherCategoryId(1L).build();
         String jsonBody = objectMapper.writeValueAsString(newCategory);
@@ -39,6 +41,7 @@ public class NewCategoryControllerTest {
 
     @Test
     @DisplayName("Deveria retornar BadRequest com nome já existente ")
+    @WithUserDetails("email@email.com")
     public void insertShouldReturnBadRequestWhenNameAlreadyExists() throws Exception {
         NewCategoryForm newCategory = new NewCategoryFormBuilder().withName("Geral").withMotherCategoryId(1L).build();
         String jsonBody = objectMapper.writeValueAsString(newCategory);
@@ -53,6 +56,7 @@ public class NewCategoryControllerTest {
 
     @Test
     @DisplayName("Deveria retornar BadRequest com Id de categoria mão não existente ")
+    @WithUserDetails("email@email.com")
     public void insertShouldReturnBadRequestWhenMotherCategoryIdInvalid() throws Exception {
         NewCategoryForm newCategory = new NewCategoryFormBuilder().withName("Geral").withMotherCategoryId(3L).build();
         String jsonBody = objectMapper.writeValueAsString(newCategory);

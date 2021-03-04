@@ -1,5 +1,7 @@
 package com.leodelmiro.mercadolivre.newcategory;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,7 @@ public class NewCategoryController {
 
     @PostMapping
     @Transactional
-    public CreatedCategoryDTO insert(@RequestBody @Valid NewCategoryForm newCategoryForm) {
+    public CreatedCategoryDTO insert(@AuthenticationPrincipal UserDetails userDetails, @RequestBody @Valid NewCategoryForm newCategoryForm) {
         Category newCategory = newCategoryForm.toModel(entityManager);
 
         entityManager.persist(newCategory);

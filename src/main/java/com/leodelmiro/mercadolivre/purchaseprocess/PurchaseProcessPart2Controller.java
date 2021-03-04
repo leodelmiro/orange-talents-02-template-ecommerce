@@ -2,6 +2,9 @@ package com.leodelmiro.mercadolivre.purchaseprocess;
 
 import com.leodelmiro.mercadolivre.common.validation.PurchaseNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,13 +25,13 @@ public class PurchaseProcessPart2Controller {
 
     @PostMapping(value = "/retorno-pagseguro/{purchaseId}")
     @Transactional
-    public String pagseguroProcessing(@PathVariable Long purchaseId, @Valid PagseguroReturnRequest request) {
+    public String pagseguroProcessing(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long purchaseId, @Valid PagseguroReturnRequest request) {
         return process(purchaseId, request);
     }
 
     @PostMapping(value = "/retorno-paypal/{purchaseId}")
     @Transactional
-    public String paypalProcessing(@PathVariable Long purchaseId, @Valid PaypalReturnRequest request) {
+    public String paypalProcessing(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long purchaseId, @Valid PaypalReturnRequest request) {
         return process(purchaseId, request);
     }
 
